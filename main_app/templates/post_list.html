@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Posts{% endblock %}
+{% block content %}
+
+<div>
+
+    <h1 class="title pt-5">{{ header }}</h1>
+
+    <hr>
+    <hr>
+
+
+    <div class="gallery">
+        {% for post in posts %}
+        <a href="">
+            <div class="card" style="width:18rem;">
+                <div class="card-image">
+                    <figure class="image is-square">
+                        <img src="{{post.img}}" alt="{{post.name}}" />
+                    </figure>
+                </div>
+                <div class="card-header">
+                    <h1 class="card-header-title">{{post.name}} </h1>
+                    {{post.author}} - {{post.public_date}}
+                </div>
+            </div>
+        </a>
+        <!-- <div class="card-body">
+                <p>{{ post.body }}</p>
+                | " : 200" 
+                </div> -->
+
+        {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>No Posta Available</p>
+            </div>
+        </article>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

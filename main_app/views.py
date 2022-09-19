@@ -13,4 +13,10 @@ class Home(TemplateView):
 
 class About(TemplateView):
     template_name = "about.html"
+
+class Cities(TemplateView):
+    template_name="city_list.html"
+    
+class Post(TemplateView):
+    template_name="post_list.html"
    
