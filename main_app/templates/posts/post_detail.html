@@ -7,22 +7,23 @@ By: {{ post.author }} ||
 {{ post.public_date }} <br />
 
 <div class="detail__container">
-
-    <div class="button">
-        <!-- need to work on style bootstrap5 -->
-        <a href="{% url 'post_update' post.pk %}" class="btn btn-primary">
-            <span class="icon">
-                <i class="bi bi-pen"></i>
-            </span>
-            edit
-        </a>
-        <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">
-            <span class="icon">
-                <i class="bi bi-trash"></i>
-            </span>
-            delete
-        </a>
-    </div>
+    {% if user.is_authenticated %}
+        <div class="button">
+            <!-- need to work on style bootstrap5 -->
+            <a href="{% url 'post_update' post.pk %}" class="btn btn-primary">
+                <span class="icon">
+                    <i class="bi bi-pen"></i>
+                </span>
+                edit
+            </a>
+            <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">
+                <span class="icon">
+                    <i class="bi bi-trash"></i>
+                </span>
+                delete
+            </a>
+        </div>
+    {% endif %}
 
     <div class="detail__about">
 
@@ -30,27 +31,14 @@ By: {{ post.author }} ||
         <!-- if you ant to add html to your post but it wouldnt be safe you might get hacked 
         <p>{{ post.body | safe }}</p> -->
     </div>
-    <a class="button" href="{% url 'post'  %}">back</a>
+    <a class="button" href="{% url 'post_list'  %}">back</a>
 
 
     <br /><br />
     <hr>
     <br />
 
-    <!-- <form action="{% url 'post_like' post.pk %}" method="POST">
-        {% csrf_token %}
-           {% if user.is_authenticated %} -->
-        <!-- {% if liked %}
-        <button class="button is-danger is-small  " type="submit" name="post_id" value="{{post.id}}">Unlike</button>
-        {% else %}
-        <button class="button is-info is-small  " type="submit" name="post_id" value="{{post.id}}">Like</button>
-
-        {% endif %} -->
-        <!-- {% else%} -->
-        <!-- <small><a href="{% url 'login' %}">log in </a>to like </small>
-        {% endif %}
-        - {{ total_likes }} likes
-    </form> --> 
+    
 </div>
 
 

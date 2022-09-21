@@ -12,7 +12,7 @@
 
     <div class="gallery">
         {% for post in posts %}
-        <a href="">
+        <a href="{% url 'post_detail' post.pk %}">
             <div class="card" style="width:18rem;">
                 <div class="card-image">
                     <figure class="image is-square">

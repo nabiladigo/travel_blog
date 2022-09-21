@@ -8,6 +8,7 @@
     <hr>
     <hr>
             <!-- how to make this part just for superuser -->
+            {% if user.is_authenticated %}
                     <div class="button">
                         <!-- need to work on style bootstrap5 -->
                                 <a href="{% url 'city_update' city.pk %}" class="btn btn-primary">
@@ -23,6 +24,7 @@
                                     delete
                                 </a>
                     </div>
+            {% endif %}        
             <hr>
             <hr>
 
