@@ -5,5 +5,12 @@ urlpatterns =[
     path('', views.Home.as_view(), name="home"),
     path('about/', views.About.as_view(), name="about"),
     path('cities/', views.Cities.as_view(), name="city_list"),
-    path('posts/', views.Post.as_view(), name="post_list"),
+    path('cities/new', views.CityCreate.as_view(), name="city_create"),
+    path('cities/<int:pk>/', views.CityDetail.as_view(), name="city_detail"),
+    path('cities/<int:pk>/update', views.CityUpdate.as_view(), name="city_update"),
+    path('cities/<int:pk>/delete', views.CityDelete.as_view(), name="city_delete"),
+
+    path('posts', views.Posts.as_view(), name="post_list"),
+    path('cities/posts/new', views.PostCreate.as_view(), name="post_create"),
+    path('posts/<int:pk>/', views.PostDtail.as_view(), name="post_detail"),
 ]

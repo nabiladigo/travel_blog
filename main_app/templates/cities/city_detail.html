@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{{ city.name }} <br />
+
+<div class="detail__container">
+    <hr>
+    <hr>
+            <!-- how to make this part just for superuser -->
+                    <div class="button">
+                        <!-- need to work on style bootstrap5 -->
+                                <a href="{% url 'city_update' city.pk %}" class="btn btn-primary">
+                                    <span class="icon">
+                                        <i class="bi bi-pen"></i>
+                                    </span>
+                                    edit
+                                </a>
+                                <a href="{% url 'city_delete' city.pk  %}" class="btn btn-danger">
+                                    <span class="icon">
+                                        <i class="bi bi-trash"></i>
+                                    </span>
+                                    delete
+                                </a>
+                    </div>
+            <hr>
+            <hr>
+
+    <div class="">
+        <div class="card-image">
+            <figure class="image is-square">
+                <img src="{{city.img}}" alt="{{city.name}}" />
+            </figure>
+        </div>
+        <div class="card-header">
+            <h1 class="card-header-title">{{city.name}} </h1>
+            
+        </div>
+        <div class="card-body">
+            <p>{{ city.body }}</p>
+            <!-- | " : 200"  -->
+        </div>
+        
+    </div>
+
+
+    <hr>
+    <hr>
+
+    <div class="detail__songs mb-5 ">
+        <h3 class="title is-3">Posts</h3>
+        {% for post in city.cities.all %}
+            <div class="post">
+            <a href="">
+                <div class="card-image">
+                    <figure class="image is-square">
+                        <img src="{{post.img}}" alt="{{post.title}}" />
+                    </figure>
+                </div>
+                <div class="card-header">
+                    <h1 class="card-header-title">{{post.title}} </h1>
+                    {{post.author}} - {{post.post_date}}
+                </div>
+            </a>
+            <div class="card-body">
+                <p>{{ post.body }}</p>
+                <!-- | " : 200"  -->
+            </div>
+            
+  
+        {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>No Posts Available</p>
+            </div>
+        </article>
+    
+        {% endfor %}
+    </div>
+
+
+
+    
+</div>
+
+
+
+{% endblock%}
