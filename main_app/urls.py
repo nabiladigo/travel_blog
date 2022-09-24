@@ -16,5 +16,7 @@ urlpatterns =[
     path('posts/<int:pk>/update', views.PostUpdate.as_view(), name="post_update"),
     path('posts/<int:pk>/delete', views.PostDelete.as_view(), name="post_delete"),
 
-    path('accounts/signup', views.Signup.as_view(), name="signup")
+    path('accounts/signup', views.Signup.as_view(), name="signup"),
+    path('profile/<int:pk>', views.ProfilePage.as_view(), name= "profile"),
+    path('profile_update/<int:pk>', views.ProfileUpdate.as_view(), name="profile_update")
 ]

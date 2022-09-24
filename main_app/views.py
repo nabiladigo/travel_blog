@@ -1,11 +1,11 @@
-import re
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 
 # from main_app.forms import PostCreateForm
-from .models import City, Post
+from .models import City, Post, Profile
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.contrib.auth import login
@@ -14,6 +14,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from .forms import  UpdateProfileForm
 from django.urls import reverse
 
 # Create your views here.
@@ -156,3 +157,25 @@ class Signup(View):
         else:
             context= {"form": form}
             return render(request, "registration/signup.html", context)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfilePage(DetailView):
+    model= Profile
+    templaet_name= "registration/profile.html"
+
+    def get_context_data(self,  **kwargs):
+        context = super(ProfilePage, self).get_context_data(**kwargs)
+        context['post']= Post.objects.filter(user= self.request.user)
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+
+class ProfileUpdate(UpdateView):
+    model =Profile
+    form_class = UpdateProfileForm
+    template_name= "registration/profile_update.html"
+
+    def get_success_url(self):
+        return reverse('profile', kwargs={'pk':self.object.pk})

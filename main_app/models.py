@@ -1,3 +1,4 @@
+import email
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -37,5 +38,17 @@ class Post(models.Model):
 
     
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, default="first name")
+    last_name = models.CharField(max_length=100, default="last name")
+    username = models.CharField(max_length=100, default="last name")
+    email = models.CharField(max_length=100, default="last name")
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    city = models.CharField(max_length=60)
+    join_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
 
 
