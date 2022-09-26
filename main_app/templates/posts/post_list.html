@@ -16,7 +16,8 @@
             <div class="card" style="width:18rem;">
                 <div class="card-image">
                     <figure class="image is-square">
-                        <img src="{{post.image}}" alt="{{post.title}}" />
+                        <!-- why use {{post.image.url}} instead post.image -->
+                        <img src="{{ post.image.url}}" alt="{{post.title}}" />
                     </figure>
                 </div>
                 <div class="card-header">
@@ -33,7 +34,7 @@
         {% empty %}
         <article class="message">
             <div class="message-header">
-                <p>No Posta Available</p>
+                <p>No Posts Available</p>
             </div>
         </article>
 

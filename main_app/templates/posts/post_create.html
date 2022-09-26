@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="create-body container-fluid">
-
-
-    <div class="form-group">
-        <label id="form-label">Add Post</label>
-        <form method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input action="" class="update_form_input" type="submit" value="Submit" />
-
-    </div>
-
+<h1> Add Post...</h1>
+<br /><br />
+<div class="form_group">
+    <form method="Post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit" />
+        <!-- <button class="btn btn-secondary">Post</button> -->
+    </form>
 </div>
+
+
 
 {% endblock %}

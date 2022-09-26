@@ -3,4 +3,43 @@
 
 <h1>Visit Morocco With Bouamrani</h1>
 
+<div>
+
+    <h1 class="title pt-5">{{ header }}</h1>
+
+    <hr>
+    <hr>
+
+
+    <div class="gallery">
+        {% for post in posts %}
+        <a href="{% url 'post_detail' post.pk %}">
+            <div class="card" style="width:18rem;">
+                <div class="card-image">
+                    <figure class="image is-square">
+                        <img src="{{post.image}}" alt="{{post.title}}" />
+                    </figure>
+                </div>
+                <div class="card-header">
+                    <h1 class="card-header-title">{{post.name}} </h1>
+                    {{post.author}} - {{post.post_date}}
+                </div>
+            </div>
+        </a>
+        <!-- <div class="card-body">
+                <p>{{ post.body }}</p>
+                | " : 200" 
+                </div> -->
+
+        {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>No Posts Available</p>
+            </div>
+        </article>
+
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
