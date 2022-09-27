@@ -9,7 +9,7 @@
         <div class="">
             <div class="card-image">
                 <figure class="image is-square">
-                    <img src="{{city.image.url}}" alt="{{city.name}}" />
+                    <img src="{{ city.image.url}}"  alt="{{city.name}}" />
                 </figure>
             </div>
             <div class="card-header">
@@ -26,10 +26,10 @@
             <hr>
             <hr>
         <!-- how to make this part just for superuser -->
-        {% if user.is_authenticated %}
-        <div class="button">
+        <!-- {% if user.is_authenticated %}
+        <div class="button"> -->
             <!-- need to work on style bootstrap5 -->
-            <a href="{% url 'city_update' city.pk %}" class="btn btn-primary">
+            <!-- <a href="{% url 'city_update' city.pk %}" class="btn btn-primary">
                 <span class="icon">
                     <i class="bi bi-pen"></i>
                 </span>
@@ -42,7 +42,7 @@
                 delete
             </a>
         </div>
-        {% endif %}
+        {% endif %} -->
 
 
     <hr>
@@ -73,6 +73,7 @@
         <article class="message">
             <div class="message-header">
                 <p>No Posts Available</p>
+                <a class="" href="{% url 'post_create'%}">Add a Post</a>
             </div>
         </article>
     

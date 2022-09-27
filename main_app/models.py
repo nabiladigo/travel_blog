@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class City(models.Model):
     name= models.CharField(max_length=100, unique=True)
-    image= models.CharField(max_length=250)
+    image = models.ImageField(null=True, blank=True, upload_to="image/")
     country= models.CharField(max_length=250)
     body= models.TextField(max_length=500)
     created_at= models.DateTimeField(auto_now_add=True)
