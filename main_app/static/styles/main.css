@@ -1,0 +1,29 @@
+.galery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+    
+}
+
+.card{
+    
+}
+/* .gallery{
+    display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+}
+ 
+.card{
+   border: 2px solid red;
+   margin: 5px;
+
+
+/*     
+    background: var(--color-bg-variant);
+        padding: 1.3rem;
+        border-radius: 2rem;
+        border: 1px solid red;
+        transition: var(--transition)
+ */

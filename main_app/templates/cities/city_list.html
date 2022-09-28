@@ -41,19 +41,43 @@
 
     <div class="gallery">
         {% for city in cities %}
-        <a href=" {% url 'city_detail'  city.pk %}">
-            <div class="card" style="width:18rem;">
-                <div class="card-image">
-                    <figure class="image is-square">
-                        <img src="{{ city.image.url}}"  alt="{{city.name}}" />
-                    </figure>
-                </div>
+        <div class="card" style="width:18rem;">
+            <a href=" {% url 'city_detail'  city.pk %}">
+                <!-- <div class="card-image">
+                    <figure class="image is-square"> -->
+                        <img class="card-img-top" src="{{ city.image.url}}"  alt="{{city.name}}" />
+                    <!-- </figure>
+                </div> -->
                 <div class="card-header">
                     <h1 class="card-header-title">{{city.name}} </h1>
                     <!-- {{city.author}} - {{city.public_date}} -->
                 </div>
+            </a>
+            <div class="card-body">
+                <p class="card-text">{{city.body }}</p>
+                
             </div>
-        </a>
+        </div>
+        <hr>
+        <hr>
+        <form action="url 'post_like' post.pk " method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+            {% if liked %}
+            <button class="button is-danger is-small  " type="submit" name="post_id" value="{{post.id}}">Unlike</button>
+            {% else %}
+            <button class="button is-info is-small  " type="submit" name="post_id" value="{{post.id}}">Like</button>
+        
+            {% endif %}
+            {% else%}
+            <small><a href="{% url 'login' %}">log in </a>to like </small>
+            {% endif %}
+            - {{ total_likes }} likes
+        </form>
+
+        <hr>
+        <hr>
+        
         {% empty %}
         <article class="message">
             <div class="message-header">
