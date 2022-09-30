@@ -120,15 +120,15 @@
                     <!-- {{ user.profile.username }} -->
                 </div>
                 <div class="col">
-                    {{ user.city }}
+                   city: {{ profile.city }}
                 </div>
 
 
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col" id="join_date">
                         Joined: {{ user.join_date}}
                     </div>
-                </div> -->
+                </div>
             </div>
             <button class="btn btn-default btn-sm"><a href="{% url 'profile_update'%}">Update Profile</a></button>
             
@@ -136,24 +136,21 @@
             <p id="myposts"> My posts:</p>
             <div class="gallery">
                 {% for post in posts %}
-                <a href="{% url 'post_detail' post.pk %}">
-                    <div class="card" style="width:18rem;">
-                        <div class="card-image">
-                            <figure class="image is-square">
-                                <img src="{{post.image.url}}" alt="{{post.title}}" />
-                            </figure>
-                        </div>
-                        <div class="card-header">
-                            <h1 class="card-header-title">{{post.name}} </h1>
-                            {{post.author}} - {{post.post_date}}
-                        </div>
-                    </div>
-                </a>
-                <!-- <div class="card-body">
-                            <p>{{ post.body }}</p>
-                            | " : 200" 
-                            </div> -->
+        <div class="card" style="width:18rem;">
+            <a href="{% url 'post_detail' post.pk %}">
+                        <img  class="card-img-top"src="{{post.image.url}}" alt="{{post.title}}" />   
+                <div class="card-header">
+                    <h1 class="card-header-title">{{post.title}} </h1>
+                    {{post.author}} - {{post.post_date}}
+                </div>
             
+            </a>
+            <div class="card-body">
+                <p class="card-text">{{ post.body  }}</p>
+            </div>
+        </div>
+                </a>
+
                 {% empty %}
                 <article class="message">
                     <div class="message-header">
