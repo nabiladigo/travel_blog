@@ -1,5 +1,4 @@
-from distutils.command.upload import upload
-import email
+
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -22,9 +21,11 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
-    post_date = models.DateField(auto_now_add=True)
+    post_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='blog_posts')
     city= models.ForeignKey(City, on_delete=models.CASCADE, related_name="cities")
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     def total_likes(self):
         return self.likes.count()
 
@@ -33,6 +34,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', args=(str(self.id)))
+    
+    class Meta:
+        ordering =["-post_date"]
+        
 
     
 

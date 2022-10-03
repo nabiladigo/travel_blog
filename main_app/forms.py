@@ -42,6 +42,7 @@ class UpdateProfileForm(UserChangeForm):
     last_name =forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class':'form-control'}))
     username =forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class':'form-control'}))
     avatar =forms.CharField(max_length=250, widget= forms.TextInput(attrs={'class':'form-control'}))
+    city = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     # is_superuser =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))
     # is_staff =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))
     # is_active =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))

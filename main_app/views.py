@@ -93,9 +93,7 @@ class CityDelete(DeleteView):
 
 class Posts(TemplateView):
     template_name="posts/post_list.html"
-    ordring =[ '-id' ]
-
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         title = self.request.GET.get("title")
