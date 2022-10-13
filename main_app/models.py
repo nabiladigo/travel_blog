@@ -11,9 +11,19 @@ class City(models.Model):
     country= models.CharField(max_length=250)
     body= models.TextField(max_length=500)
     created_at= models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='blog_cites')
+
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('city_detail', args=(str(self.id)))
+
+    
 
 
 class Post(models.Model):

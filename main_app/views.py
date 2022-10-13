@@ -73,6 +73,37 @@ class CityDetail(DetailView):
     model=City
     template_name="cities/city_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(CityDetail, self).get_context_data(**kwargs)
+
+        stuff = get_object_or_404(City, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
+        context["total_likes"] = total_likes
+        context["liked"] = liked
+
+        return context
+
+
+def citylike(request, pk):
+    city = get_object_or_404(City, id=request.POST.get('city_id'))
+    liked = False
+    if city.likes.filter(id=request.user.id).exists():
+        city.likes.remove(request.user)
+        liked = False
+    else:
+        city.likes.add(request.user)
+        liked = True
+
+    # to stay in the same page without the user notice anything
+    return HttpResponseRedirect(reverse('city_detail', args=[str(pk)]))
+
+
+
 
 @method_decorator(login_required, name='dispatch')
 class CityUpdate(UpdateView):
