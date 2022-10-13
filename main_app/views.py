@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 
 
-from .models import City, Post, Profile
+from .models import City, Post, Profile ,User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.views import generic
@@ -218,8 +218,16 @@ class Signup(generic.CreateView):
 
     
 
-def profile(request):
-    return render(request, 'registration/profile.html')
+@login_required
+def profile(request, pk=None):
+    if pk:
+        post_owner= get_object_or_404(User, pk=pk)
+        user_posts= Post.objects.filter(user= request.author)
+    else:
+        post_owner= request.user
+        user_posts=Post.objects.filter(author_id=pk)
+    return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
+
 # @method_decorator(login_required, name='dispatch')
 # class ProfilePage(DetailView):
 #     model= Profile

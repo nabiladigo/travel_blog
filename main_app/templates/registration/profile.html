@@ -133,10 +133,10 @@
             <button class="btn btn-default btn-sm"><a href="{% url 'profile_update'%}">Update Profile</a></button>
             
         </div>
-        <!-- <div>
+        <div>
             <p id="myposts"> My posts:</p>
             <div class="gallery">
-                {% for posts in post %}
+                {% for post in user_posts %}
                     <div class="card" style="width:18rem;">
                         <a href="{% url 'post_detail' post.pk %}">
                                     <img  class="card-img-top"src="{{post.image.url}}" alt="{{post.title}}" />   
@@ -153,16 +153,16 @@
                 
 
                 {% empty %}
-                <article class="message">-->
+                <!-- <article class="message"> -->
                     <div class="message-header">
                         <!-- <p>No Posts Available</p> -->
                          <a class="" href="{%  url 'post_create' %}">Add Post</a> 
                     </div>
-                <!-- </article>
+                 <!-- </article> -->
             
-                {% endfor %}
+                 {% endfor %} 
             </div>
-        </div> -->
+        </div> 
     </div>
 </body>
 
