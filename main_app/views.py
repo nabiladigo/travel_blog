@@ -217,16 +217,23 @@ class Signup(generic.CreateView):
     success_url = reverse_lazy('login')
 
     
+class CreateProfileView(CreateView):
+    model= Profile
+    template_name= "registration/create_user_profile.html"
 
-@login_required
-def profile(request, pk=None):
-    if pk:
-        post_owner= get_object_or_404(User, pk=pk)
-        user_posts= Post.objects.filter(user= request.author)
-    else:
-        post_owner= request.user
-        user_posts=Post.objects.filter(author_id=pk)
-    return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+        
+# @login_required
+# def profile(request, pk=None):
+#     if pk:
+#         post_owner= get_object_or_404(User, pk=pk)
+#         user_posts= Post.objects.filter(user= request.author)
+#     else:
+#         post_owner= request.user
+#         user_posts=Post.objects.filter(author_id=pk)
+#     return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
 
 # @method_decorator(login_required, name='dispatch')
 # class ProfilePage(DetailView):

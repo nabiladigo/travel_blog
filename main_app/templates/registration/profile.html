@@ -141,7 +141,7 @@
                         <a href="{% url 'post_detail' post.pk %}">
                                     <img  class="card-img-top"src="{{post.image.url}}" alt="{{post.title}}" />   
                             <div class="card-header">
-                                <h1 class="card-header-title">{{post.title}} </h1>
+                                <h1 class="card-header-title">{{post.user.title}} </h1>
                                 {{post.author}} - {{post.post_date}}
                             </div>
                         

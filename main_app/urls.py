@@ -1,6 +1,6 @@
 from django.urls import path 
 from . import views
-from .views import profile, postlike, citylike
+from .views import  postlike, citylike 
 
 urlpatterns =[
     path('', views.Home.as_view(), name="home"),
@@ -20,8 +20,9 @@ urlpatterns =[
     path('like/<int:pk>/', postlike, name="post_like"),
 
     path('accounts/signup', views.Signup.as_view(), name="signup"),
+    path('create_profile_page/', views.CreateProfileView.as_view(), name="create_profile_page"),
     # path('/profile/<int:pk>/', views.ProfilePage.as_view(), name= "profile"),
-    path('profile/', profile, name="profile"),
+    # path('profile/', profile, name="profile"),
     path('profile_update/', views.ProfileUpdate.as_view(), name="profile_update"),
     path('password/', views.PasswordChangeView.as_view(), name="passsword_changed"),
     path('password_changed', views.password_changed, name="password_success")
