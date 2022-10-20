@@ -1,12 +1,14 @@
-.galery {
+/* .galery {
     margin: 5px;
     border: 1px solid #ccc;
     float: left;
     width: 180px;
     
-}
+} */
 
-.card{
+.card img{
+    height: 280px;
+    
     
 }
 /* .gallery{

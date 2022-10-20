@@ -2,7 +2,17 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+
+
 # Create your models here.
+
+
+
+
+
+
+
+
 
 
 class City(models.Model):
@@ -59,7 +69,7 @@ class Profile(models.Model):
     bio = models.TextField()
     email = models.CharField(max_length=100, default="last name")
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
-    city = models.CharField(max_length=60)
+    city = models.CharField(max_length=100)
     join_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -1,4 +1,5 @@
 
+from pyexpat.errors import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -19,6 +20,18 @@ from django.utils.decorators import method_decorator
 
 from .forms import PostCreateForm, UpdateProfileForm, SignUpForm, PasswordChangingForm
 from django.urls import reverse, reverse_lazy
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Create your views here.
 
@@ -211,29 +224,49 @@ class PostDelete(DeleteView):
 
 
 
+
+
+
 class Signup(generic.CreateView):
     form_class= SignUpForm
     template_name = "registration/signup.html"
     success_url = reverse_lazy('login')
 
     
-class CreateProfileView(CreateView):
-    model= Profile
-    template_name= "registration/create_user_profile.html"
+# class CreateProfileView(CreateView):
+#     model= Profile
+#     template_name= "registration/create_user_profile.html"
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
         
-# @login_required
-# def profile(request, pk=None):
-#     if pk:
-#         post_owner= get_object_or_404(User, pk=pk)
-#         user_posts= Post.objects.filter(user= request.author)
-#     else:
-#         post_owner= request.user
-#         user_posts=Post.objects.filter(author_id=pk)
-#     return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        profile_form= UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if  profile_form.is_valid():
+
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+
+            return redirect(to = 'registration/profile.html')
+    else:
+
+        profile_form= UpdateProfileForm(instance=request.user.profile)  
+        
+        return render(request, 'registration/profile.html',  {'profile_form': profile_form})
+
+# (request, pk=None):
+    
+    # if pk:
+    #     post_owner= get_object_or_404(User, pk=pk)
+    #     user_posts= Post.objects.filter(user= request.author)
+    # else:
+    #     post_owner= request.user
+    #     user_posts=Post.objects.filter(author_id=pk)
+    # return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
 
 # @method_decorator(login_required, name='dispatch')
 # class ProfilePage(DetailView):

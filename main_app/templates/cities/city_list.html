@@ -17,19 +17,19 @@
         </div>
         <a class="btn is-dark" href="{% url 'city_list' %}">Clear Search</a>
     </form>
-<hr>
-<hr>
-<a class="btn is-dark" href="{% url 'city_create' %} ">Add City</a>
+<!-- <hr>
+<hr> -->
+<!-- <a class="btn is-dark" href="{% url 'city_create' %} ">Add City</a> -->
 
-    <hr>
+    <!-- <hr>
     <hr>
 
     <h2>I want to add a map here </h2>
     <br />
     <hr>
-    <hr>
+    <hr> -->
 
-    <div>
+    <!-- <div>
         <ul>
             <li> New Photos</li>
             <li> New Blogers</li>
@@ -37,35 +37,41 @@
     </div>
 
     <hr>
+    <hr> -->
 
 
-    <div class="gallery">
-        {% for city in cities %}
-        <div class="card" style="width:18rem;">
-            <a href=" {% url 'city_detail'  city.pk %}">
-                <!-- <div class="card-image">
-                    <figure class="image is-square"> -->
-                        <img class="card-img-top" src="{{ city.image.url}}"  alt="{{city.name}}" />
-                    <!-- </figure>
-                </div> -->
-                <div class="card-header">
-                    <h1 class="card-header-title">{{city.name}} </h1>
-                    <!-- {{city.author}} - {{city.public_date}} -->
-                </div>
-            </a>
-            <div class="card-body">
-                <p class="card-text">{{city.body }}</p>
-                
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                {% for city in cities %}
+                    <div class="card mb-5 shadow-sm">
+                        <a href=" {% url 'city_detail'  city.pk %}">
+                            <img class="card-img-top" src="{{ city.image.url}}"  alt="{{city.name}}" />    
+                        </a>
+                    </div>   
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a href=" {% url 'city_detail'  city.pk %}">
+                                <h1 class="card-header-title">{{city.name}} </h1>
+                            </a>
+                        </div>
+                        <div class="card-text">
+                            <p >{{city.body }}</p>
+                        </div>
+                        <a href="#" class="btn btn-outline-primary round-0 float-end">Read More</a>
+                        <br/>
+                    </div>
+                    <br/>
+                    <br/>
+                {% empty %}
+                <article class="message">
+                    <div class="message-header">
+                        <p>No Cities Available</p>
+                    </div>
+                </article>
             </div>
         </div>
         
-        
-        {% empty %}
-        <article class="message">
-            <div class="message-header">
-                <p>No Cities Available</p>
-            </div>
-        </article>
        
         {% endfor %}
     </div>

@@ -90,15 +90,7 @@
         </nav> 
     </header>       
 
-<h1> this is my profile page {{user.username}}</h1>
-
-<!-- {% url 'posts' as home %}
-{% if request.path == home %}
-<form method="GET">
-    <input type="text" name="city" placeholder="Search">
-    <button type="submit" class="">Submit</button>
-</form>
-{% endif %} -->
+<!-- <h1> this is my profile page {{user.username}}</h1> -->
 
 <hr>
 <hr>
@@ -109,24 +101,24 @@
     <div class="container profile-container">
         <div class="row">
             <div class="col">
-                <img class="img-fluid" id="profile_pic" src="{{ user.avatar }}" />
-                <h5>{{user.username}}</h5>
+                <img class="rounded-circle account-img" id="profile_pic" src="{{ user.profile.avatar.url }}" />
+                <h5>{{user.profile.username}}</h5>
             </div>
             <div class="row">
                 <div class="col">
-                    {{ user.first_name }} {{ user.last_name }}
+                    {{ user.profile.first_name }} {{ user.profile.last_name }}
                 </div>
                 <div class="col">
                     <!-- {{ user.profile.username }} -->
                 </div>
                 <div class="col">
-                   <!-- city: {{ user.city }} -->
+                   city: {{ user.profile.city }}
                 </div>
 
 
                 <div class="row">
                     <div class="col" id="join_date">
-                        <!-- Joined: {{ user.profile.join_date}} -->
+                        Joined: {{ user.profile.join_date}}
                     </div>
                 </div>
             </div>
@@ -136,12 +128,12 @@
         <div>
             <p id="myposts"> My posts:</p>
             <div class="gallery">
-                {% for post in user_posts %}
+                {% for post in posts %}
                     <div class="card" style="width:18rem;">
                         <a href="{% url 'post_detail' post.pk %}">
-                                    <img  class="card-img-top"src="{{post.image.url}}" alt="{{post.title}}" />   
+                                    <img  class="card-img-top"src="{{user.profile.post.image.url}}" alt="{{post.title}}" />   
                             <div class="card-header">
-                                <h1 class="card-header-title">{{post.user.title}} </h1>
+                                <h1 class="card-header-title">{{post.title}} </h1>
                                 {{post.author}} - {{post.post_date}}
                             </div>
                         
