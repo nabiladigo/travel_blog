@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <img src="{{ post.image.url}}"/><br/><br/>
 {{ post.title }} <br />
-By: {{ post.author }} ||
-{{ post.public_date }} <br />
+<!-- By:  -->
+<img src="{{ post.author.profile.avatar.url }}" class="rounded-circle account-img" alt="."/>{{ post.author.username }}<br/>
+City: <a href="/cities">{{ post.city}}</a> <br/>
+
+{{ post.post_date }} <br />
 
 <div class="detail__container">
     {% if user.is_authenticated %}
@@ -33,7 +37,7 @@ By: {{ post.author }} ||
         <!-- if you ant to add html to your post but it wouldnt be safe you might get hacked 
         <p>{{ post.body | safe }}</p> -->
     </div>
-    <a class="button" href="{% url 'post_list'  %}">back</a>
+    <a class="button" href="/">back</a>
 
 
     <br /><br />
@@ -53,6 +57,12 @@ By: {{ post.author }} ||
         {% endif %}
         - {{ total_likes }} likes
     </form>
+    <br/>
+    <br/>
+
+    
+
+
 </div>
 
 

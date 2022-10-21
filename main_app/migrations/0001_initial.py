@@ -26,21 +26,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Profile',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(default='first name', max_length=100)),
-                ('last_name', models.CharField(default='last name', max_length=100)),
-                ('username', models.CharField(default='last name', max_length=100)),
-                ('bio', models.TextField()),
-                ('email', models.CharField(default='last name', max_length=100)),
-                ('avatar', models.ImageField(default='default.jpg', upload_to='profile_images')),
-                ('city', models.CharField(max_length=60)),
-                ('join_date', models.DateTimeField(auto_now_add=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Post',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

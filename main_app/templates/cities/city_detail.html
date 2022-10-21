@@ -21,32 +21,9 @@
                 <!-- | " : 200"  -->
             </div>
             
-        </div>
-
-
+        </div>   
         <hr>
         <hr>
-
-        <form action="{% url 'city_like' city.pk %}" method="POST">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-            {% if liked %}
-            <button class="button is-danger is-small  " type="submit" name="city_id" value="{{city.id}}">Unlike</button>
-            {% else %}
-            <button class="button is-info is-small  " type="submit" name="city_id" value="{{city.id}}">Like</button>
-        
-            {% endif %}
-            {% else%}
-            <small><a href="{% url 'login' %}">log in </a>to like </small>
-            {% endif %}
-            - {{ total_likes }} likes
-        </form>
-        
-        <hr>
-        <hr>
-                  
-            <hr>
-            <hr>
         <!-- how to make this part just for superuser -->
         <!-- {% if user.is_authenticated %}
         <div class="button"> -->

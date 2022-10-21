@@ -14,7 +14,7 @@ class PostCreateForm(forms.ModelForm):
         'autor': forms.Select(attrs={'class':'form-control', 'palceholder':'user name'}),
         'image': forms.TextInput(attrs={'class':'form-control'}),
         'body': forms.Textarea(attrs={'class':'form-control'}),
-        'cityy': forms.TextInput(attrs={'class':'form-control'}),
+        'city': forms.TextInput(attrs={'class':'form-control'}),
     }
 
 
@@ -22,6 +22,7 @@ class SignUpForm(UserCreationForm):
         email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
         first_name =forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class':'form-control'}))
         last_name =forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class':'form-control'}))
+        
 
         class Meta:
             model =User
@@ -43,6 +44,7 @@ class UpdateProfileForm(UserChangeForm):
     username =forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class':'form-control'}))
     avatar =forms.CharField(max_length=250, widget= forms.TextInput(attrs={'class':'form-control'}))
     city = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    bio = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
     # is_superuser =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))
     # is_staff =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))
     # is_active =forms.CharField(max_length=100, widget= forms.CheckboxInput(attrs={'class':'form-check'}))
@@ -50,7 +52,7 @@ class UpdateProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields=('username', 'first_name', 'last_name','email', 'avatar')
+        fields=('username', 'first_name', 'last_name','email', 'avatar','bio','city')
 
 
 class PasswordChangingForm(PasswordChangeForm):

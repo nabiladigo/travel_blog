@@ -22,17 +22,6 @@ from .forms import PostCreateForm, UpdateProfileForm, SignUpForm, PasswordChangi
 from django.urls import reverse, reverse_lazy
 
 
-
-
-
-
-
-
-
-
-
-
-
 # Create your views here.
 
 class Home(TemplateView):
@@ -54,6 +43,8 @@ class Home(TemplateView):
 class About(TemplateView):
     template_name = "about.html"
 
+
+# city views
 
 class Cities(TemplateView):
     template_name="cities/city_list.html"
@@ -81,41 +72,38 @@ class CityCreate(CreateView):
         return reverse('city_detail', kwargs={'pk': self.object.pk})
 
 
-
 class CityDetail(DetailView):
     model=City
     template_name="cities/city_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(CityDetail, self).get_context_data(**kwargs)
+    # def get_context_data(self, **kwargs):
+    #     context = super(CityDetail, self).get_context_data(**kwargs)
 
-        stuff = get_object_or_404(City, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
+    #     stuff = get_object_or_404(City, id=self.kwargs['pk'])
+    #     total_likes = stuff.total_likes()
 
-        liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists():
-            liked = True
+    #     liked = False
+    #     if stuff.likes.filter(id=self.request.user.id).exists():
+    #         liked = True
 
-        context["total_likes"] = total_likes
-        context["liked"] = liked
+    #     context["total_likes"] = total_likes
+    #     context["liked"] = liked
 
-        return context
+    #     return context
 
 
-def citylike(request, pk):
-    city = get_object_or_404(City, id=request.POST.get('city_id'))
-    liked = False
-    if city.likes.filter(id=request.user.id).exists():
-        city.likes.remove(request.user)
-        liked = False
-    else:
-        city.likes.add(request.user)
-        liked = True
+# def citylike(request, pk):
+#     city = get_object_or_404(City, id=request.POST.get('city_id'))
+#     liked = False
+#     if city.likes.filter(id=request.user.id).exists():
+#         city.likes.remove(request.user)
+#         liked = False
+#     else:
+#         city.likes.add(request.user)
+#         liked = True
 
     # to stay in the same page without the user notice anything
-    return HttpResponseRedirect(reverse('city_detail', args=[str(pk)]))
-
-
+    # return HttpResponseRedirect(reverse('city_detail', args=[str(pk)]))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -134,22 +122,7 @@ class CityDelete(DeleteView):
     success_url = "/cities/"
 
 
-
-class Posts(TemplateView):
-    template_name="posts/post_list.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        title = self.request.GET.get("title")
-
-        if title != None:
-            context["posts"] = Post.objects.filter(name_icontains=title)
-            context["header"] = f"Searching for {title}"
-        else:
-            context["posts"] = Post.objects.all()
-            context["header"] = "posts"
-        return context
-
+# Post views
 
 # need to work on create not working
 
@@ -165,8 +138,6 @@ class PostCreate(CreateView):
     # def form_valid(self, form):
     #     form.instance.user = self.request.user
     #     return super(PostCreate, self).form_valid(form)
-
-
 
 
 class PostDetail(DetailView):
@@ -203,7 +174,6 @@ def postlike(request, pk):
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
 
 
-
 @method_decorator(login_required, name='dispatch')
 class PostUpdate(UpdateView):
     model = Post
@@ -221,25 +191,13 @@ class PostDelete(DeleteView):
     success_url = "/posts/"
 
 
-
-
-
-
-
+# User views
 
 class Signup(generic.CreateView):
     form_class= SignUpForm
     template_name = "registration/signup.html"
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('profile')
 
-    
-# class CreateProfileView(CreateView):
-#     model= Profile
-#     template_name= "registration/create_user_profile.html"
-
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         return super().form_valid(form)
         
 @login_required
 def profile(request):
@@ -248,7 +206,7 @@ def profile(request):
 
         if  profile_form.is_valid():
 
-            profile_form.save()
+            profile.save()
             messages.success(request, 'Your profile is updated successfully')
 
             return redirect(to = 'registration/profile.html')
@@ -257,27 +215,7 @@ def profile(request):
         profile_form= UpdateProfileForm(instance=request.user.profile)  
         
         return render(request, 'registration/profile.html',  {'profile_form': profile_form})
-
-# (request, pk=None):
-    
-    # if pk:
-    #     post_owner= get_object_or_404(User, pk=pk)
-    #     user_posts= Post.objects.filter(user= request.author)
-    # else:
-    #     post_owner= request.user
-    #     user_posts=Post.objects.filter(author_id=pk)
-    # return render(request, 'registration/profile.html', {'post_owner':post_owner, 'user_posts':user_posts})
-
-# @method_decorator(login_required, name='dispatch')
-# class ProfilePage(DetailView):
-#     model= Profile
-#     templaet_name= "registration/profile.html"
-
-#     def get_context_data(self,  **kwargs):
-#         context = super(ProfilePage, self).get_context_data(**kwargs)
-#         context['post']= Post.objects.filter(user= self.request.user)
-#         return context
-
+   
 
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
@@ -288,20 +226,12 @@ class ProfileUpdate(UpdateView):
     def get_object(self):
         return self.request.user
 
-# class ProfileUpdate(UpdateView):
-#     model =Profile
-#     form_class = UpdateProfileForm
-#     template_name= "registration/profile_update.html"
-
-#     def get_success_url(self):
-#         return reverse('profile', kwargs={'pk':self.object.pk})
-
 
 class PasswordChange(PasswordChangeView):
     form_class = PasswordChangingForm
-    # need to figur out why my render pages not working
-    success_url = reverse_lazy('password_success')
+    success_url = reverse_lazy('profile')
 
+    # success_url = reverse_lazy('password_success')
 
-def password_changed(request):
+def password_success(request):
     return render(request, 'registration/password_success.html', {})

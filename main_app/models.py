@@ -7,14 +7,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-
-
-
-
-
-
-
-
 class City(models.Model):
     name= models.CharField(max_length=100, unique=True)
     image = models.ImageField(null=True, blank=True, upload_to="image/")
@@ -40,6 +32,7 @@ class Post(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="image/")
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # body=RichTextField(blank=True, nul=True)
     body = models.TextField()
     post_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='blog_posts')
@@ -63,13 +56,19 @@ class Post(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, default="first name")
-    last_name = models.CharField(max_length=100, default="last name")
-    username = models.CharField(max_length=100, default="last name")
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, null=True )
     bio = models.TextField()
-    email = models.CharField(max_length=100, default="last name")
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    email = models.CharField(max_length=100, null=True )
+    avatar = models.ImageField(default='profile_images', upload_to='profile_images')
     city = models.CharField(max_length=100)
+
+    website_url = models.CharField(max_length=225, null=True, blank=True )
+    facebook_url = models.CharField(max_length=225, null=True, blank=True )
+    instagram_url = models.CharField(max_length=225, null=True, blank=True )
+    twitter_url = models.CharField(max_length=225, null=True, blank=True )
+
     join_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
