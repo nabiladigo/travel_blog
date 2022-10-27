@@ -1,5 +1,3 @@
-
-from pyexpat.errors import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -18,7 +16,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .forms import PostCreateForm, UpdateProfileForm, SignUpForm, PasswordChangingForm
+from .forms import PostCreateForm, ProfilePageForm, UpdateProfileForm, SignUpForm, PasswordChangingForm
 from django.urls import reverse, reverse_lazy
 
 
@@ -26,19 +24,6 @@ from django.urls import reverse, reverse_lazy
 
 class Home(TemplateView):
     template_name = "home.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        title = self.request.GET.get("title")
-
-        if title != None:
-            context["posts"] = Post.objects.filter(name_icontains=title)
-            context["header"] = f"Searching for {title}"
-        else:
-            context["posts"] = Post.objects.all()
-            context["header"] = "posts"
-        return context
-
     
 class About(TemplateView):
     template_name = "about.html"
@@ -198,30 +183,54 @@ class Signup(generic.CreateView):
     template_name = "registration/signup.html"
     success_url = reverse_lazy('profile')
 
+
+class ProfilePage(DetailView):
+    model= Profile
+    template_name= "registration/profile_page.html"
+
+    def get_context_data(self,*args, **kwargs):
+        users=Profile.objects.all()
+        context = super(ProfilePage, self).get_context_data(*args,**kwargs) 
+
+        page_user=get_object_or_404(Profile, id=self.kwargs['pk'])      
+        context["page_user"] = page_user
+        return context
+
+
+class CreateProfilePage(CreateView):
+    model=Profile
+    form_class= ProfilePageForm
+    template_name= "registration/create_profile_page.html"
+    # fields= '__all__'
+
+    def form_valid(self, form):
+        form.instance.user= self.request.user
+        return super().form_valid(form)
+
         
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        profile_form= UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+# @login_required
+# def profile(request):
+#     if request.method == 'POST':
+#         profile_form= UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if  profile_form.is_valid():
+#         if  profile_form.is_valid():
 
-            profile.save()
-            messages.success(request, 'Your profile is updated successfully')
+#             profile.save()
+#             messages.success(request, 'Your profile is updated successfully')
 
-            return redirect(to = 'registration/profile.html')
-    else:
+#             return redirect(to = 'registration/profile.html')
+#     else:
 
-        profile_form= UpdateProfileForm(instance=request.user.profile)  
+#         profile_form= UpdateProfileForm(instance=request.user.profile)  
         
-        return render(request, 'registration/profile.html',  {'profile_form': profile_form})
+#         return render(request, 'registration/profile.html',  {'profile_form': profile_form})
    
 
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
     form_class = UpdateProfileForm
     template_name = "registration/profile_update.html"
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
 
     def get_object(self):
         return self.request.user

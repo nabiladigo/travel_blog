@@ -1,9 +1,25 @@
 from dataclasses import fields
+from tkinter import Widget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .models import City, Post, Profile
 from django.contrib.auth.models import User 
 
+class ProfilePageForm(forms.ModelForm):
+     class Meta:
+        model=Profile
+        fields = ('bio','email','avatar','city','website_url','facebook_url','instagram_url','twitter_url')
+        
+        Widget ={
+            # 'avatar' :  forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'bio':  forms.Textarea(attrs={'class': 'form-control'}),
+            'website_url':  forms.TextInput(attrs={'class': 'form-control'}),
+            'facebook_url':  forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram_url':  forms.TextInput(attrs={'class': 'form-control'}),
+            'twitter_url':  forms.TextInput(attrs={'class': 'form-control'}),
+            }
+    
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model= Post

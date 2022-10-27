@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Posts{% endblock %}
+{% block title %} Profile{% endblock %}
 {% block content %}
 <br/>
 <div class="card mb-3">
@@ -10,6 +10,7 @@
             {% if user.profile.avatar %}
             <img src="{{ user.profile.avatar.url }}" class="card-img" alt="...">
             {% else %}
+            <!-- cant load statics  -->
             <img src="{% static 'images/default-avatar.jpeg' %}" class="card-img" alt="love">
             {% endif %}
         </div>

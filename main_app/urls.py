@@ -1,7 +1,7 @@
 from django.urls import path 
 from . import views
-from .views import profile, postlike
-# , citylike 
+from .views import  postlike
+# , citylike ,profile
 
 urlpatterns =[
     path('', views.Home.as_view(), name="home"),
@@ -20,9 +20,11 @@ urlpatterns =[
     path('like/<int:pk>/', postlike, name="post_like"),
 
     path('accounts/signup', views.Signup.as_view(), name="signup"),
-    path('profile/', profile, name="profile"),
+    # path('profile/', profile, name="profile"),
+    path('<int:pk>/profile/', views.ProfilePage.as_view(), name="profile_page"),
     path('profile_update/', views.ProfileUpdate.as_view(), name="profile_update"),
-   
+    path('create_profile_page/', views.CreateProfilePage.as_view(),name="create_profile_page"),
+    
     path('password/', views.PasswordChange.as_view(template_name="registration/change_password.html")),
     path('password_success', views.password_success, name="password_success"),
 
