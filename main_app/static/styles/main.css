@@ -1,4 +1,39 @@
-.button {
+.pseudo-icon::before {
+    display: inline-block;
+    content: '';
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkhTiyOKuQ3y5w3w3_83pmb39ThC6-0mAjqQ&usqp=CAU');
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+body{
+    background-color: #121212;
+        color: #ffffff;
+        min-height: 100vh;
+    }
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    justify-content: center;
+    gap: 30px;
+}
+.gallery .card {
+    transition: .1s linear;
+}
+
+.gallery .card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+p {
+    font-size: 12px;
+}
+
+/* .button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -9,4 +44,4 @@
 img{
     height: 20px;
     width: 20px;
-}
+} */
